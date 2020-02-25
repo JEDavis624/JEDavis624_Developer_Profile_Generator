@@ -4,56 +4,45 @@ const fs = require("fs");
 const util = require("util");
 
 
-function promptUser() {
-    return inquirer.prompt([
-      {
-        type: "input",
-        name: "name",
-        message: "What is your name?"
-      },
-      {
-        type: "input",
-        name: "location",
-        message: "Where are you from?"
-      },
-      {
-        type: "input",
-        name: "hobby",
-        message: "What is your favorite hobby?"
-      },
-      {
-        type: "input",
-        name: "food",
-        message: "What is your favorite food?"
-      },
-  
-      {
-        type: "input",
-        name: "linkedin",
-        message: "Enter your LinkedIn URL."
-      }
-    ]);
-  }
-
-// inquirer.prompt([
-// 
-// ]).then(function(inquirerData){
-//     console.log(inquirerData)
-// })
+inquirer.prompt([
+    questions
+]).then(function(inquirerData){
+    console.log(inquirerData)
+});
 
 
 
 const questions = [
     {
         type: "input", 
+        message: "What is your name?",
+        name: "name"
+    },
+    {
+        type: "input", 
         message: "What is your Github Username?",
         name: "username"
     },
     {
-
+        type: "input", 
+        message: "What is your Github Email?",
+        name: "email"
+    },
+    {
+        type: "input", 
+        message: "What is your favorite color?",
+        name: "color"
     }
   
 ];
+
+ then(function({ username }) {
+    const queryUrl = `https://api.github.com/users/${username}/repos?per_page=100`;
+
+    axios.get(queryUrl).then(function(res) {
+      const repoNames = res.data.map(function(repo) {
+        return repo.name;
+      });
 
 function writeToFile(fileName, data) {
  
